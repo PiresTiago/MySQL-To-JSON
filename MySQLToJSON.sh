@@ -36,10 +36,11 @@ do
     json_attributes=$(echo ${tmp%?})
  
     table_query="SET GLOBAL group_concat_max_len = ${max_group_concat}; SELECT concat('[', group_concat(JSON_OBJECT( $json_attributes )SEPARATOR
-    ',') ,']') from ${table} INTO OUTFILE \"${output_path}${table}.json\""
+    ',') ,']') INTO OUTFILE \"${output_path}${table}.json\" FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '' ESCAPED BY '' from ${table}"
 
     # Use this Query if the above fails and add [] to the files after
-    #  table_query="SELECT JSON_OBJECT( $json_attributes ) from ${table} INTO OUTFILE \"${output_path}${table}.json\""
+    #  table_query="SELECT JSON_OBJECT( $json_attributes ) INTO OUTFILE \"${output_path}${table}.json\" 
+    #  FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '' ESCAPED BY '' from ${table}"
     
     mysql -u ${user} -p${password} ${database_name} -e "$table_query"
     echo $table
