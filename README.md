@@ -2,6 +2,13 @@
 Bash script to migrate data from MySQL databases to JSON Files
 
 ### Instructions:
+
+#### Make script executable
+```
+chmod +x ./MySQLToJSON.sh
+```
+
+#### Use it!
 ```
 ./MySQLToJSON.sh  <database name>  <database user>  <database password>  <path to JSON files>
 ```
